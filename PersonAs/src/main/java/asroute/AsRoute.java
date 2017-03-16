@@ -28,7 +28,7 @@ public class AsRoute extends RouteBuilder {
 
 
         from("amq:AS.IN?concurrentConsumers=1&maxConcurrentConsumers=50")
-                .routeId("zoli-as")
+                .routeId("kati-as")
                 .log(LoggingLevel.INFO, logger, " AS Received  request to process ${headers}") //and body : ${body}")
                 .inOut("amq:PLATFORM.IN?replyTo=PLATFORM.OUT&requestTimeout=22000")
                 .log(LoggingLevel.INFO, logger, " AS Got the response back ${headers}")
