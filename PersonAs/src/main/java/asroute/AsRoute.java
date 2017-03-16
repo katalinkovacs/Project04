@@ -27,11 +27,12 @@ public class AsRoute extends RouteBuilder {
                 .end();
 
 
-        from("wmq:AS.IN?concurrentConsumers=1&maxConcurrentConsumers=50")
+        from("amq:AS.IN?concurrentConsumers=1&maxConcurrentConsumers=50")
                 .routeId("zoli-as")
                 .log(LoggingLevel.INFO, logger, " AS Received  request to process ${headers}") //and body : ${body}")
-                .inOut("wmq:PLATFORM.IN?replyTo=PLATFORM.OUT&requestTimeout=22000")
-                .log(LoggingLevel.INFO, logger, " AS Got the response back ${headers}"); //and body : ${body}");
+                .inOut("amq:PLATFORM.IN?replyTo=PLATFORM.OUT&requestTimeout=22000")
+                .log(LoggingLevel.INFO, logger, " AS Got the response back ${headers}")
+                .to("amq:AS.OUT");
     }
 
 }
