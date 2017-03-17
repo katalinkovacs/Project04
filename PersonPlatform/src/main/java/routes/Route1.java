@@ -1,9 +1,14 @@
 package routes;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class Route1 extends RouteBuilder{
+
+    private static final Logger logger = LoggerFactory.getLogger(Route1.class);
 
     @Override
     public void configure() throws Exception {
