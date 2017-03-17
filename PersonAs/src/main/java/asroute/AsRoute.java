@@ -20,7 +20,7 @@ public class AsRoute extends RouteBuilder {
                 .useOriginalMessage()
                 .log(LoggingLevel.INFO, logger, "onexception block")
                 .doTry()
-                .to("wmq:" + errorQ)
+                .to("amq:" + errorQ)
                 .endDoTry()
                 .doCatch(Exception.class)
                 .log(LoggingLevel.ERROR, logger, "exception when putting msg on error queue").end()
