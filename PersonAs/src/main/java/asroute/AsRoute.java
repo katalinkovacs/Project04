@@ -27,9 +27,12 @@ public class AsRoute extends RouteBuilder {
                 .end();
 
 
-        from("amq:AS.IN?concurrentConsumers=1&maxConcurrentConsumers=50")
-                .routeId("kati-as")
-                .log(LoggingLevel.INFO, logger, " AS Received  request to process ${headers}") //and body : ${body}")
+        from("amq:AS.IN")
+                .routeId("person-as")
+                .log(LoggingLevel.INFO, logger, " AS Received  request to process ${headers}")
+                // here we invoke the platform we send the message to PLATFORM.IN on which the platform route is listening
+                // platform module will send the response back to PLATFORM.OUT queue -- this inout step is waiting on that
+                // once the message arrives to PLATFORM.OUT then we carry on with this route to the next step
                 .inOut("amq:PLATFORM.IN?replyTo=PLATFORM.OUT&requestTimeout=22000")
                 .log(LoggingLevel.INFO, logger, " AS Got the response back ${headers}")
                 .to("amq:AS.OUT");
